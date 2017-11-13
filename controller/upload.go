@@ -17,7 +17,7 @@ import (
 	"log"
 	"github.com/nfnt/resize"
 	"github.com/axetroy/go-fs"
-	"github.com/axetroy/go-upload/server/config"
+	"github.com/axetroy/go-upload/config"
 	"github.com/gin-gonic/gin"
 )
 

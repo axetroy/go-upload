@@ -34,6 +34,10 @@ func Init() (err error) {
 
 	err = yaml.Unmarshal(yamlFile, &Config)
 
+	if err != nil {
+		return err
+	}
+
 	InitPaths()
 	InitHttp()
 	InitUpload()

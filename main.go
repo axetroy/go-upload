@@ -1,8 +1,8 @@
-package main
+package go_upload
 
 import (
-	"github.com/axetroy/go-upload/server/config"
-	"github.com/axetroy/go-upload/server/http"
+	"github.com/axetroy/go-upload/config"
+	"github.com/axetroy/go-upload/http"
 )
 
 func main() {
@@ -14,10 +14,12 @@ func main() {
 	// init anything
 	if err = config.Init(); err != nil {
 		panic(err)
+		return
 	}
 
 	if err = http.Init(); err != nil {
 		panic(err)
+		return
 	}
 
 	http.RunServer()

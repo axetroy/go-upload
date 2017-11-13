@@ -2,8 +2,8 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/axetroy/go-upload/server/controller"
-	"github.com/axetroy/go-upload/server/config"
+	"github.com/axetroy/go-upload/controller"
+	"github.com/axetroy/go-upload/config"
 	"github.com/itsjamie/gin-cors"
 	"github.com/axetroy/go-fs"
 	"time"
