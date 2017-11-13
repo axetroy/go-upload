@@ -1,5 +1,7 @@
 ### go文件上传模块
 
+主要针对图片上传
+
 - [x] 文件上传
 - [x] 限制上传文件的后缀名
 - [x] 限制上传文件的大小
@@ -11,7 +13,7 @@
 
 ```bash
 go get -v github.com/axetroy/go-upload
-cd $GOHOME/src/github.com/axetroy/go-upload
+cd $GOPATH/src/github.com/axetroy/go-upload
 make build
 ./bin/server
 ```
@@ -20,7 +22,7 @@ make build
 
 ```bash
 [POST]  /upload                                 # 图片上传POST方法
-[GET]   /download/:size/:filename               # 获取的上传的图片
+[GET]   /download/:size/:filename               # 获取的上传的图片, size为配置文件[upload.image, upload.thumbnail]
 [GET]   /upload/example                         # 图片上传的demo，简单的表单post
 ```
 
