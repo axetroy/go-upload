@@ -74,9 +74,11 @@ func RunServer() (err error) {
 	uploader.POST("/image", controller.UploaderImage)
 	uploader.POST("/file", controller.UploadFile)
 
-	uploaderExample := uploader.Group("/example")
-	uploaderExample.GET("/file", controller.UploaderTemplate("file"))
-	uploaderExample.GET("/image", controller.UploaderTemplate("image"))
+	if config.Config.Mode != gin.ReleaseMode {
+		uploaderExample := uploader.Group("/example")
+		uploaderExample.GET("/file", controller.UploaderTemplate("file"))
+		uploaderExample.GET("/image", controller.UploaderTemplate("image"))
+	}
 
 	// download all
 	downloader := Router.Group("/download")
