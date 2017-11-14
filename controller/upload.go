@@ -14,7 +14,6 @@ import (
 	"image/gif"
 	"errors"
 	"strconv"
-	"log"
 	"github.com/nfnt/resize"
 	"github.com/axetroy/go-fs"
 	"github.com/axetroy/go-upload/config"
@@ -64,7 +63,7 @@ func thumbnailify(imagePath string) (outputPath string, err error) {
 
 	defer file.Close()
 
-	m := resize.Thumbnail(300, 300, img, resize.Lanczos3)
+	m := resize.Thumbnail(uint(config.Upload.ThumbnailMaxWidth), uint(config.Upload.ThumbnailMaxHeight), img, resize.Lanczos3)
 
 	out, err := os.Create(outputPath)
 	if err != nil {
@@ -134,9 +133,7 @@ func Uploader(context *gin.Context) {
 
 	// 压缩缩略图
 	// 不管成功与否，都会进行下一步的返回
-	if _, err := thumbnailify(absPath); err != nil {
-		log.Fatal("生成缩略图失败")
-	}
+	thumbnailify(absPath)
 
 	context.JSON(http.StatusOK, gin.H{
 		"hash":     md5string,
