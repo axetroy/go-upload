@@ -28,7 +28,7 @@ func Init() (err error) {
 }
 
 func RunServer() (err error) {
-
+	gin.SetMode(config.Config.Mode)
 	Router = gin.Default()
 	Router.Use(gin.Logger())
 	Router.Use(func(context *gin.Context) {

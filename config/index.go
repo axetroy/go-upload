@@ -4,11 +4,15 @@ import (
 	"path/filepath"
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
+	"os"
+	"github.com/gin-gonic/gin"
 )
 
 type ConfigType struct {
 	Http   HttpConfig
 	Upload UploadConfig
+	Env    string
+	Mode   string
 }
 
 var Config ConfigType
@@ -36,6 +40,16 @@ func Init() (err error) {
 
 	if err != nil {
 		return err
+	}
+
+	Config.Env = os.Getenv("GO_ENV")
+
+	if Config.Env == gin.ReleaseMode || Config.Env == "production" || Config.Env == "publish" {
+		Config.Mode = gin.ReleaseMode
+	} else if Config.Env == gin.TestMode {
+		Config.Mode = gin.TestMode
+	} else {
+		Config.Mode = gin.DebugMode
 	}
 
 	InitPaths()
