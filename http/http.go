@@ -18,10 +18,13 @@ func Init() (err error) {
 	if err = fs.EnsureDir(config.Upload.Path); err != nil {
 		return
 	}
-	if err = fs.EnsureDir(path.Join(config.Upload.Path, config.Upload.Image)); err != nil {
+	if err = fs.EnsureDir(path.Join(config.Upload.Path, config.Upload.File.Path)); err != nil {
 		return
 	}
-	if err = fs.EnsureDir(path.Join(config.Upload.Path, config.Upload.Thumbnail)); err != nil {
+	if err = fs.EnsureDir(path.Join(config.Upload.Path, config.Upload.Image.Path)); err != nil {
+		return
+	}
+	if err = fs.EnsureDir(path.Join(config.Upload.Path, config.Upload.Image.Thumbnail.Path)); err != nil {
 		return
 	}
 	return
@@ -56,18 +59,37 @@ func RunServer() (err error) {
 	})
 	Router.Use(cors.Middleware(cors.Config{
 		Origins:         "*",
-		Methods:         "GET, PUT, POST, DELETE",
-		RequestHeaders:  "Origin, Authorization, Content-Type",
+		Methods:         "GET, POST",
+		RequestHeaders:  "Origin, Content-Type",
 		ExposedHeaders:  "",
-		MaxAge:          50 * time.Second,
+		MaxAge:          60 * time.Second,
 		Credentials:     true,
 		ValidateHeaders: false,
 	}))
 	Router.Use(gin.Recovery())
 
-	Router.POST("/upload", controller.Uploader)
-	Router.GET("/upload/example", controller.UploaderTemplate)
-	Router.GET("/download/:size/:filename", controller.Downloader)
+	// upload all
+	uploader := Router.Group("/upload")
+
+	uploader.POST("/image", controller.UploaderImage)
+	uploader.POST("/file", controller.UploadFile)
+
+	uploaderExample := uploader.Group("/example")
+	uploaderExample.GET("/file", controller.UploaderTemplate("file"))
+	uploaderExample.GET("/image", controller.UploaderTemplate("image"))
+
+	// download all
+	downloader := Router.Group("/download")
+
+	// download image
+	downloadImage := downloader.Group("/image")
+	downloadImage.GET("/thumbnail/:filename", controller.GetThumbnailImage)
+	downloadImage.GET("/origin/:filename", controller.GetOriginImage)
+
+	// download file
+	uploadFile := downloader.Group("/file")
+	uploadFile.GET("/raw/:filename", controller.GetFileRaw)
+	uploadFile.GET("/download/:filename", controller.DownloadFile)
 
 	Router.Use(controller.NotFound)
 

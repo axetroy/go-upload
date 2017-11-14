@@ -1,3 +1,7 @@
+# config.yaml
+
+# 在GO中，所有属性绑定到结构体，都是小写
+
 # HTTP模块设置
 http:
   host: localhost                               # 监听地址
@@ -6,17 +10,21 @@ http:
 # 上传模块的相关设置
 
 upload:
-  path: uploads                                 # 上传文件的保存目录名，相对于当前目录
-  image: origin                                  # path的子目录，图片保存的目录名，
-  thumbnail: thumbnail                          # path的字目录，缩略图保存的目录名
-  thumbnailmaxwidth: 300                        # 缩略图的最大宽度
-  thumbnailmaxheight: 300                       # 缩略图的最大高度
-  allowtype:                                    # 如果是空数组，那么会允许任意文件后缀名
-    - .jpg
-    - .jpeg
-    - .png
-    - .svg
-    - .gif
-    - .bmp
-    - .ico
-  maxsize: 10485760                             # 上传文件的最大大小，默认10M
+  path: uploads                                 # 文件上传的根目录
+  # 普通文件上传
+  file:
+    path: files                                 # 文件上传的目录
+    maxsize: 10485760                           # 上传文件的最大大小
+    allowtype:                                  # 允许上传的文件后缀名
+      - .log
+      - .txt
+      - .text
+      - .md
+  # 图片上传
+  image:
+    path: image                                 # 图片上传的目录
+    maxsize: 10485760                           # 上传图片的最大大小
+    thumbnail:
+      path: thumbnail                           # 缩略图存放的目录
+      maxwidth: 300                             # 缩略图最大宽度
+      maxheight: 300                            # 缩略图最大高度

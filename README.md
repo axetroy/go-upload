@@ -1,7 +1,5 @@
 ### go文件上传模块
 
-主要针对图片上传
-
 - [x] 文件上传
 - [x] 限制上传文件的后缀名
 - [x] 限制上传文件的大小
@@ -16,14 +14,24 @@ go get -v github.com/axetroy/go-upload
 cd $GOPATH/src/github.com/axetroy/go-upload
 make build
 ./bin/server
+# 或者以生产环境运行
+GO_ENV=production ./bin/server
 ```
 
 ### API
 
 ```bash
-[POST]  /upload                                 # 图片上传POST方法
-[GET]   /download/:size/:filename               # 获取的上传的图片, size为配置文件[upload.image, upload.thumbnail]
-[GET]   /upload/example                         # 图片上传的demo，简单的表单post
+
+# 上传相关
+[POST]  /upload/image                           # 图片上传POST方法
+[POST]  /upload/file                            # 上传其他文件
+[GET]   /upload/example/image                   # 图片上传demo，仅在开发模式下
+[GET]   /upload/example/file                    # 文件上传demo，仅在开发模式下
+# 下载相关
+[GET]   /download/image/origin/:filename        # 获取上传的原始图片
+[GET]   /download/image/thumbnail/:filename     # 获取上传的缩略图片
+[GET]   /download/file/download/:filename       # 下载文件
+[GET]   /download/raw/raw/:filename             # 获取文件
 ```
 
 ### 配置文件
@@ -32,6 +40,9 @@ make build
 
 ```yaml
 # config.yaml
+
+# 在GO中，所有属性绑定到结构体，都是小写
+
 # HTTP模块设置
 http:
   host: localhost                               # 监听地址
@@ -40,20 +51,24 @@ http:
 # 上传模块的相关设置
 
 upload:
-  path: uploads                                 # 上传文件的保存目录名，相对于当前目录
-  image: image                                  # path的子目录，图片保存的目录名，
-  thumbnail: thumbnail                          # path的字目录，缩略图保存的目录名
-  thumbnailmaxwidth: 300                        # 缩略图的最大宽度
-  thumbnailmaxheight: 300                       # 缩略图的最大高度
-  allowtype:                                    # 如果是空数组，那么会允许任意文件后缀名
-    - .jpg
-    - .jpeg
-    - .png
-    - .svg
-    - .gif
-    - .bmp
-    - .ico
-  maxsize: 10485760                             # 上传文件的最大大小，默认10M
+  path: uploads                                 # 文件上传的根目录
+  # 普通文件上传
+  file:
+    path: files                                 # 文件上传的目录
+    maxsize: 10485760                           # 上传文件的最大大小
+    allowtype:                                  # 允许上传的文件后缀名
+      - .log
+      - .txt
+      - .text
+      - .md
+  # 图片上传
+  image:
+    path: image                                 # 图片上传的目录
+    maxsize: 10485760                           # 上传图片的最大大小
+    thumbnail:
+      path: thumbnail                           # 缩略图存放的目录
+      maxwidth: 300                             # 缩略图最大宽度
+      maxheight: 300                            # 缩略图最大高度
 ```
 
 
