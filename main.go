@@ -1,4 +1,4 @@
-package go_upload
+package main
 
 import (
 	"github.com/axetroy/go-upload/config"
