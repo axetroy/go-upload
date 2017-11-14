@@ -40,6 +40,8 @@ func thumbnailify(imagePath string) (outputPath string, err error) {
 		return
 	}
 
+	defer file.Close()
+
 	// decode jpeg into image.Image
 	switch extname {
 	case ".jpg", ".jpeg":
@@ -60,8 +62,6 @@ func thumbnailify(imagePath string) (outputPath string, err error) {
 		err = errors.New("Generate thumbnail fail...")
 		return
 	}
-
-	defer file.Close()
 
 	m := resize.Thumbnail(uint(config.Upload.ThumbnailMaxWidth), uint(config.Upload.ThumbnailMaxHeight), img, resize.Lanczos3)
 
