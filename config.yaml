@@ -7,7 +7,7 @@ http:
 
 upload:
   path: uploads                                 # 上传文件的保存目录名，相对于当前目录
-  image: image                                  # path的子目录，图片保存的目录名，
+  image: origin                                  # path的子目录，图片保存的目录名，
   thumbnail: thumbnail                          # path的字目录，缩略图保存的目录名
   thumbnailmaxwidth: 300                        # 缩略图的最大宽度
   thumbnailmaxheight: 300                       # 缩略图的最大高度
