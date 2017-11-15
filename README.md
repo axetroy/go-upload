@@ -31,7 +31,7 @@ GO_ENV=production ./bin/server
 [GET]   /download/image/origin/:filename        # 获取上传的原始图片
 [GET]   /download/image/thumbnail/:filename     # 获取上传的缩略图片
 [GET]   /download/file/download/:filename       # 下载文件
-[GET]   /download/raw/raw/:filename             # 获取文件
+[GET]   /download/file/raw/:filename            # 获取文件
 ```
 
 ### 配置文件
