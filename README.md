@@ -1,5 +1,7 @@
 ### go文件上传模块
 
+基于[github.com/axetroy/gin-uploader](https://github.com/axetroy/gin-uploader)
+
 - [x] 文件上传
 - [x] 限制上传文件的后缀名
 - [x] 限制上传文件的大小

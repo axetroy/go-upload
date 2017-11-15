@@ -6,11 +6,12 @@ import (
 	"gopkg.in/yaml.v2"
 	"os"
 	"github.com/gin-gonic/gin"
+	"github.com/axetroy/gin-uploader"
 )
 
 type ConfigType struct {
 	Http   HttpConfig
-	Upload UploadConfig
+	Upload uploader.TConfig
 	Env    string
 	Mode   string
 }

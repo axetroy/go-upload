@@ -33,10 +33,5 @@ func main() {
 		return
 	}
 
-	if err = http.Init(); err != nil {
-		panic(err)
-		return
-	}
-
 	http.RunServer()
 }
