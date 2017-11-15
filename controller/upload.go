@@ -290,14 +290,23 @@ func UploaderTemplate(template string) (func(context *gin.Context)) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>`+ template+ ` Upload</title>
+  <title>Upload</title>
 </head>
 <body>
-<form action="/upload/`+ template+ `" method="post" enctype="multipart/form-data">
-  <h2>`+ template+ ` Upload</h2>
-  <input type="file" name="`+ FIELD+ `">
+<form action="/upload/image" method="post" enctype="multipart/form-data">
+  <h2>Image Upload</h2>
+  <input type="file" name="file">
   <input type="submit" value="Upload">
 </form>
+
+</hr>
+
+<form action="/upload/file" method="post" enctype="multipart/form-data">
+  <h2>File Upload</h2>
+  <input type="file" name="file">
+  <input type="submit" value="Upload">
+</form>
+
 </body>
 </html>
 	`)

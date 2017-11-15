@@ -25,8 +25,7 @@ GO_ENV=production ./bin/server
 # 上传相关
 [POST]  /upload/image                           # 图片上传
 [POST]  /upload/file                            # 其他文件上传
-[GET]   /upload/example/image                   # 图片上传demo，仅在开发模式下
-[GET]   /upload/example/file                    # 文件上传demo，仅在开发模式下
+[GET]   /upload/example                         # 上传demo，仅在开发模式下
 # 下载相关
 [GET]   /download/image/origin/:filename        # 获取上传的原始图片
 [GET]   /download/image/thumbnail/:filename     # 获取上传的缩略图片
