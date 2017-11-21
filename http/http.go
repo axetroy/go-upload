@@ -16,7 +16,13 @@ func RunServer() (err error) {
 	Router.Use(gin.Logger())
 	Router.Use(gin.Recovery())
 
-	err, _, _ = uploader.Resolve(Router, config.Config.Upload)
+	if upload, download, err := uploader.New(Router, config.Config.Upload); err != nil {
+		return err
+	} else {
+		if err := uploader.Resolve(upload, download); err != nil {
+			return err
+		}
+	}
 
 	return Router.Run(config.Http.Host + ":" + config.Http.Port)
 }
