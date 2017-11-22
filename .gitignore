@@ -69,3 +69,4 @@ fabric.properties
 vendor
 .idea
 bin/*
+uploads/*
