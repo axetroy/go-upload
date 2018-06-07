@@ -28,12 +28,10 @@ func RunServer() (err error) {
 		ValidateHeaders: false,
 	}))
 
-	if upload, download, err := uploader.New(Router, config.Config.Upload); err != nil {
+	if loader, err := uploader.New(Router, config.Config.Upload); err != nil {
 		return err
 	} else {
-		if err := uploader.Resolve(upload, download); err != nil {
-			return err
-		}
+		loader.Resolve()
 	}
 
 	return Router.Run(config.Http.Host + ":" + config.Http.Port)
