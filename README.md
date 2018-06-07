@@ -12,7 +12,7 @@
 ### 如何运行
 
 ```bash
-go get -v github.com/axetroy/go-upload
+go get -v -u github.com/axetroy/go-upload
 cd $GOPATH/src/github.com/axetroy/go-upload
 make build
 ./bin/server
